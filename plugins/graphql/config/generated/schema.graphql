@@ -31,22 +31,6 @@ type createRolePayload {
   role: UsersPermissionsRole
 }
 
-input createTestInput {
-  data: TestInput
-}
-
-type createTestPayload {
-  test: Test
-}
-
-input createTextInput {
-  data: TextInput
-}
-
-type createTextPayload {
-  text: Text
-}
-
 input createUserInput {
   data: UserInput
 }
@@ -74,22 +58,6 @@ input deleteRoleInput {
 
 type deleteRolePayload {
   role: UsersPermissionsRole
-}
-
-input deleteTestInput {
-  where: InputID
-}
-
-type deleteTestPayload {
-  test: Test
-}
-
-input deleteTextInput {
-  where: InputID
-}
-
-type deleteTextPayload {
-  text: Text
 }
 
 input deleteUserInput {
@@ -128,23 +96,6 @@ input editRoleInput {
   users: [ID]
 }
 
-input editTestInput {
-  name: String
-  description: String
-  date: DateTime
-  photo: ID
-  is_active: Boolean
-}
-
-input editTextInput {
-  page_title_pl: String
-  page_title_eng: String
-  homepage_header_pl: String
-  homepage_header_eng: String
-  news_header_pl: String
-  news_header_eng: String
-}
-
 input editUserInput {
   username: String
   email: String
@@ -181,18 +132,12 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Test | createTestPayload | updateTestPayload | deleteTestPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
   updateArticle(input: updateArticleInput): updateArticlePayload
   deleteArticle(input: deleteArticleInput): deleteArticlePayload
-  createTest(input: createTestInput): createTestPayload
-  updateTest(input: updateTestInput): updateTestPayload
-  deleteTest(input: deleteTestInput): deleteTestPayload
-  createText(input: createTextInput): createTextPayload
-  updateText(input: updateTextInput): updateTextPayload
-  deleteText(input: deleteTextInput): deleteTextPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -217,10 +162,6 @@ type Mutation {
 type Query {
   article(id: ID!): Article
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
-  test(id: ID!): Test
-  tests(sort: String, limit: Int, start: Int, where: JSON): [Test]
-  text(id: ID!): Text
-  texts(sort: String, limit: Int, start: Int, where: JSON): [Text]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   role(id: ID!): UsersPermissionsRole
 
@@ -241,47 +182,6 @@ input RoleInput {
   users: [ID]
 }
 
-"""Test api"""
-type Test {
-  id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
-  name: String
-  description: String
-  date: DateTime
-  photo: UploadFile
-  is_active: Boolean
-}
-
-input TestInput {
-  name: String
-  description: String
-  date: DateTime
-  photo: ID
-  is_active: Boolean
-}
-
-type Text {
-  id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
-  page_title_pl: String
-  page_title_eng: String
-  homepage_header_pl: String
-  homepage_header_eng: String
-  news_header_pl: String
-  news_header_eng: String
-}
-
-input TextInput {
-  page_title_pl: String
-  page_title_eng: String
-  homepage_header_pl: String
-  homepage_header_eng: String
-  news_header_pl: String
-  news_header_eng: String
-}
-
 input updateArticleInput {
   where: InputID
   data: editArticleInput
@@ -298,24 +198,6 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
-}
-
-input updateTestInput {
-  where: InputID
-  data: editTestInput
-}
-
-type updateTestPayload {
-  test: Test
-}
-
-input updateTextInput {
-  where: InputID
-  data: editTextInput
-}
-
-type updateTextPayload {
-  text: Text
 }
 
 input updateUserInput {
