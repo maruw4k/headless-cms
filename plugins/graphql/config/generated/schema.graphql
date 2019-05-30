@@ -23,6 +23,14 @@ type createArticlePayload {
   article: Article
 }
 
+input createMenuInput {
+  data: MenuInput
+}
+
+type createMenuPayload {
+  menu: Menu
+}
+
 input createRoleInput {
   data: RoleInput
 }
@@ -58,6 +66,14 @@ input deleteArticleInput {
 
 type deleteArticlePayload {
   article: Article
+}
+
+input deleteMenuInput {
+  where: InputID
+}
+
+type deleteMenuPayload {
+  menu: Menu
 }
 
 input deleteRoleInput {
@@ -104,6 +120,12 @@ input editFileInput {
   related: [ID]
 }
 
+input editMenuInput {
+  name: String
+  category: ENUM_MENU_CATEGORY
+  price: Float
+}
+
 input editRoleInput {
   name: String
   description: String
@@ -127,6 +149,15 @@ input editUserInput {
   confirmed: Boolean
   blocked: Boolean
   role: ID
+}
+
+enum ENUM_MENU_CATEGORY {
+  napoje_gorace
+  napoje_zimne
+  na_slodko
+  na_slono
+  lunche
+  alkohol
 }
 
 input FileInput {
@@ -154,12 +185,30 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+type Menu {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String
+  category: ENUM_MENU_CATEGORY
+  price: Float
+}
+
+input MenuInput {
+  name: String
+  category: ENUM_MENU_CATEGORY
+  price: Float
+}
+
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Menu | createMenuPayload | updateMenuPayload | deleteMenuPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
   updateArticle(input: updateArticleInput): updateArticlePayload
   deleteArticle(input: deleteArticleInput): deleteArticlePayload
+  createMenu(input: createMenuInput): createMenuPayload
+  updateMenu(input: updateMenuInput): updateMenuPayload
+  deleteMenu(input: deleteMenuInput): deleteMenuPayload
   createText(input: createTextInput): createTextPayload
   updateText(input: updateTextInput): updateTextPayload
   deleteText(input: deleteTextInput): deleteTextPayload
@@ -187,6 +236,8 @@ type Mutation {
 type Query {
   article(id: ID!): Article
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
+  menu(id: ID!): Menu
+  menus(sort: String, limit: Int, start: Int, where: JSON): [Menu]
   text(id: ID!): Text
   texts(sort: String, limit: Int, start: Int, where: JSON): [Text]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
@@ -231,6 +282,15 @@ input updateArticleInput {
 
 type updateArticlePayload {
   article: Article
+}
+
+input updateMenuInput {
+  where: InputID
+  data: editMenuInput
+}
+
+type updateMenuPayload {
+  menu: Menu
 }
 
 input updateRoleInput {
