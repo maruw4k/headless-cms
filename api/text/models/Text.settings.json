@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "texts",
+  "info": {
+    "name": "text",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "key": {
+      "required": true,
+      "unique": true,
+      "type": "string"
+    },
+    "pl": {
+      "type": "string"
+    },
+    "eng": {
+      "type": "string"
+    }
+  }
+}

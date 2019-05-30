@@ -31,6 +31,14 @@ type createRolePayload {
   role: UsersPermissionsRole
 }
 
+input createTextInput {
+  data: TextInput
+}
+
+type createTextPayload {
+  text: Text
+}
+
 input createUserInput {
   data: UserInput
 }
@@ -58,6 +66,14 @@ input deleteRoleInput {
 
 type deleteRolePayload {
   role: UsersPermissionsRole
+}
+
+input deleteTextInput {
+  where: InputID
+}
+
+type deleteTextPayload {
+  text: Text
 }
 
 input deleteUserInput {
@@ -96,6 +112,12 @@ input editRoleInput {
   users: [ID]
 }
 
+input editTextInput {
+  key: String
+  pl: String
+  eng: String
+}
+
 input editUserInput {
   username: String
   email: String
@@ -132,12 +154,15 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
   updateArticle(input: updateArticleInput): updateArticlePayload
   deleteArticle(input: deleteArticleInput): deleteArticlePayload
+  createText(input: createTextInput): createTextPayload
+  updateText(input: updateTextInput): updateTextPayload
+  deleteText(input: deleteTextInput): deleteTextPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -162,6 +187,8 @@ type Mutation {
 type Query {
   article(id: ID!): Article
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
+  text(id: ID!): Text
+  texts(sort: String, limit: Int, start: Int, where: JSON): [Text]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   role(id: ID!): UsersPermissionsRole
 
@@ -182,6 +209,21 @@ input RoleInput {
   users: [ID]
 }
 
+type Text {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  key: String!
+  pl: String
+  eng: String
+}
+
+input TextInput {
+  key: String!
+  pl: String
+  eng: String
+}
+
 input updateArticleInput {
   where: InputID
   data: editArticleInput
@@ -198,6 +240,15 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
+}
+
+input updateTextInput {
+  where: InputID
+  data: editTextInput
+}
+
+type updateTextPayload {
+  text: Text
 }
 
 input updateUserInput {
