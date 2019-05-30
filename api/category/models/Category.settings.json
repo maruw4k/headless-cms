@@ -1,0 +1,24 @@
+{
+  "connection": "default",
+  "collectionName": "Category menu",
+  "info": {
+    "name": "category",
+    "description": "Kategoria w menu"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "required": true,
+      "unique": true,
+      "type": "string"
+    },
+    "is_active": {
+      "default": true,
+      "type": "boolean"
+    }
+  }
+}

@@ -15,12 +15,34 @@ input ArticleInput {
   photo: ID
 }
 
+"""Kategoria w menu"""
+type Category {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String!
+  is_active: Boolean
+}
+
+input CategoryInput {
+  name: String!
+  is_active: Boolean
+}
+
 input createArticleInput {
   data: ArticleInput
 }
 
 type createArticlePayload {
   article: Article
+}
+
+input createCategoryInput {
+  data: CategoryInput
+}
+
+type createCategoryPayload {
+  category: Category
 }
 
 input createMenuInput {
@@ -37,6 +59,14 @@ input createRoleInput {
 
 type createRolePayload {
   role: UsersPermissionsRole
+}
+
+input createSubcategoryInput {
+  data: SubcategoryInput
+}
+
+type createSubcategoryPayload {
+  subcategory: Subcategory
 }
 
 input createTextInput {
@@ -68,6 +98,14 @@ type deleteArticlePayload {
   article: Article
 }
 
+input deleteCategoryInput {
+  where: InputID
+}
+
+type deleteCategoryPayload {
+  category: Category
+}
+
 input deleteMenuInput {
   where: InputID
 }
@@ -82,6 +120,14 @@ input deleteRoleInput {
 
 type deleteRolePayload {
   role: UsersPermissionsRole
+}
+
+input deleteSubcategoryInput {
+  where: InputID
+}
+
+type deleteSubcategoryPayload {
+  subcategory: Subcategory
 }
 
 input deleteTextInput {
@@ -107,6 +153,11 @@ input editArticleInput {
   photo: ID
 }
 
+input editCategoryInput {
+  name: String
+  is_active: Boolean
+}
+
 input editFileInput {
   name: String
   hash: String
@@ -122,8 +173,9 @@ input editFileInput {
 
 input editMenuInput {
   name: String
-  category: ENUM_MENU_CATEGORY
   price: Float
+  category: ID
+  subcategory: ID
 }
 
 input editRoleInput {
@@ -132,6 +184,12 @@ input editRoleInput {
   type: String
   permissions: [ID]
   users: [ID]
+}
+
+input editSubcategoryInput {
+  name: String
+  is_active: Boolean
+  parent: ID
 }
 
 input editTextInput {
@@ -149,15 +207,6 @@ input editUserInput {
   confirmed: Boolean
   blocked: Boolean
   role: ID
-}
-
-enum ENUM_MENU_CATEGORY {
-  napoje_gorace
-  napoje_zimne
-  na_slodko
-  na_slono
-  lunche
-  alkohol
 }
 
 input FileInput {
@@ -190,25 +239,33 @@ type Menu {
   created_at: DateTime!
   updated_at: DateTime!
   name: String
-  category: ENUM_MENU_CATEGORY
   price: Float
+  category: Category
+  subcategory: Subcategory
 }
 
 input MenuInput {
   name: String
-  category: ENUM_MENU_CATEGORY
   price: Float
+  category: ID
+  subcategory: ID
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Menu | createMenuPayload | updateMenuPayload | deleteMenuPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Menu | createMenuPayload | updateMenuPayload | deleteMenuPayload | Subcategory | createSubcategoryPayload | updateSubcategoryPayload | deleteSubcategoryPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
   updateArticle(input: updateArticleInput): updateArticlePayload
   deleteArticle(input: deleteArticleInput): deleteArticlePayload
+  createCategory(input: createCategoryInput): createCategoryPayload
+  updateCategory(input: updateCategoryInput): updateCategoryPayload
+  deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
   createMenu(input: createMenuInput): createMenuPayload
   updateMenu(input: updateMenuInput): updateMenuPayload
   deleteMenu(input: deleteMenuInput): deleteMenuPayload
+  createSubcategory(input: createSubcategoryInput): createSubcategoryPayload
+  updateSubcategory(input: updateSubcategoryInput): updateSubcategoryPayload
+  deleteSubcategory(input: deleteSubcategoryInput): deleteSubcategoryPayload
   createText(input: createTextInput): createTextPayload
   updateText(input: updateTextInput): updateTextPayload
   deleteText(input: deleteTextInput): deleteTextPayload
@@ -236,8 +293,12 @@ type Mutation {
 type Query {
   article(id: ID!): Article
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
+  category(id: ID!): Category
+  categories(sort: String, limit: Int, start: Int, where: JSON): [Category]
   menu(id: ID!): Menu
   menus(sort: String, limit: Int, start: Int, where: JSON): [Menu]
+  subcategory(id: ID!): Subcategory
+  subcategories(sort: String, limit: Int, start: Int, where: JSON): [Subcategory]
   text(id: ID!): Text
   texts(sort: String, limit: Int, start: Int, where: JSON): [Text]
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
@@ -258,6 +319,22 @@ input RoleInput {
   type: String
   permissions: [ID]
   users: [ID]
+}
+
+"""Subkategoria menu"""
+type Subcategory {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String!
+  is_active: Boolean
+  parent: Category
+}
+
+input SubcategoryInput {
+  name: String!
+  is_active: Boolean
+  parent: ID
 }
 
 type Text {
@@ -284,6 +361,15 @@ type updateArticlePayload {
   article: Article
 }
 
+input updateCategoryInput {
+  where: InputID
+  data: editCategoryInput
+}
+
+type updateCategoryPayload {
+  category: Category
+}
+
 input updateMenuInput {
   where: InputID
   data: editMenuInput
@@ -300,6 +386,15 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
+}
+
+input updateSubcategoryInput {
+  where: InputID
+  data: editSubcategoryInput
+}
+
+type updateSubcategoryPayload {
+  subcategory: Subcategory
 }
 
 input updateTextInput {

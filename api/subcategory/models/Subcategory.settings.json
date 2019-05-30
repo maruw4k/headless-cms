@@ -1,9 +1,9 @@
 {
   "connection": "default",
-  "collectionName": "menus",
+  "collectionName": "Menu",
   "info": {
-    "name": "menu",
-    "description": ""
+    "name": "subcategory",
+    "description": "Subkategoria menu"
   },
   "options": {
     "increments": true,
@@ -12,16 +12,16 @@
   },
   "attributes": {
     "name": {
+      "unique": true,
+      "required": true,
       "type": "string"
     },
-    "price": {
-      "type": "float"
+    "is_active": {
+      "type": "boolean",
+      "default": true
     },
-    "category": {
+    "parent": {
       "model": "category"
-    },
-    "subcategory": {
-      "model": "subcategory"
     }
   }
 }
