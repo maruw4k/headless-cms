@@ -2,7 +2,7 @@
   "connection": "default",
   "collectionName": "menus",
   "info": {
-    "name": "menu",
+    "name": "meal",
     "description": ""
   },
   "options": {
@@ -22,6 +22,9 @@
     },
     "subcategory": {
       "model": "subcategory"
+    },
+    "additional_info": {
+      "type": "string"
     }
   }
 }
