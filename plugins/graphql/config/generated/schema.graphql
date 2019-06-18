@@ -179,6 +179,7 @@ input editMealInput {
   price: Float
   category: ID
   subcategory: ID
+  additional_info: String
 }
 
 input editRoleInput {
@@ -245,6 +246,7 @@ type Meal {
   price: Float
   category: Category
   subcategory: Subcategory
+  additional_info: String
 }
 
 input MealInput {
@@ -252,6 +254,7 @@ input MealInput {
   price: Float
   category: ID
   subcategory: ID
+  additional_info: String
 }
 
 union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Meal | createMealPayload | updateMealPayload | deleteMealPayload | Subcategory | createSubcategoryPayload | updateSubcategoryPayload | deleteSubcategoryPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
