@@ -19,6 +19,11 @@
     "is_active": {
       "default": true,
       "type": "boolean"
+    },
+    "photo": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
     }
   }
 }

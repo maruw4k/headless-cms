@@ -1,8 +1,8 @@
-/* global Menu */
+/* global Meal */
 'use strict';
 
 /**
- * Menu.js service
+ * Meal.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -18,43 +18,43 @@ const { convertRestQueryParams, buildQuery } = require('strapi-utils');
 module.exports = {
 
   /**
-   * Promise to fetch all menus.
+   * Promise to fetch all meals.
    *
    * @return {Promise}
    */
 
   fetchAll: (params, populate) => {
     // Select field to populate.
-    const withRelated = populate || Menu.associations
+    const withRelated = populate || Meal.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
     const filters = convertRestQueryParams(params);
 
-    return Menu.query(buildQuery({ model: Menu, filters }))
+    return Meal.query(buildQuery({ model: Meal, filters }))
       .fetchAll({ withRelated })
       .then(data => data.toJSON());
   },
 
   /**
-   * Promise to fetch a/an menu.
+   * Promise to fetch a/an meal.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Menu.associations
+    const populate = Meal.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    return Menu.forge(_.pick(params, 'id')).fetch({
+    return Meal.forge(_.pick(params, 'id')).fetch({
       withRelated: populate
     });
   },
 
   /**
-   * Promise to count a/an menu.
+   * Promise to count a/an meal.
    *
    * @return {Promise}
    */
@@ -63,54 +63,54 @@ module.exports = {
     // Convert `params` object to filters compatible with Bookshelf.
     const filters = convertRestQueryParams(params);
 
-    return Menu.query(buildQuery({ model: Menu, filters: _.pick(filters, 'where') })).count();
+    return Meal.query(buildQuery({ model: Meal, filters: _.pick(filters, 'where') })).count();
   },
 
   /**
-   * Promise to add a/an menu.
+   * Promise to add a/an meal.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Menu.associations.map(ast => ast.alias));
-    const data = _.omit(values, Menu.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Meal.associations.map(ast => ast.alias));
+    const data = _.omit(values, Meal.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Menu.forge(data).save();
+    const entry = await Meal.forge(data).save();
 
     // Create relational data and return the entry.
-    return Menu.updateRelations({ id: entry.id , values: relations });
+    return Meal.updateRelations({ id: entry.id , values: relations });
   },
 
   /**
-   * Promise to edit a/an menu.
+   * Promise to edit a/an meal.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Menu.associations.map(ast => ast.alias));
-    const data = _.omit(values, Menu.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Meal.associations.map(ast => ast.alias));
+    const data = _.omit(values, Meal.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Menu.forge(params).save(data);
+    const entry = await Meal.forge(params).save(data);
 
     // Create relational data and return the entry.
-    return Menu.updateRelations(Object.assign(params, { values: relations }));
+    return Meal.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an menu.
+   * Promise to remove a/an meal.
    *
    * @return {Promise}
    */
 
   remove: async (params) => {
     params.values = {};
-    Menu.associations.map(association => {
+    Meal.associations.map(association => {
       switch (association.nature) {
         case 'oneWay':
         case 'oneToOne':
@@ -127,41 +127,41 @@ module.exports = {
       }
     });
 
-    await Menu.updateRelations(params);
+    await Meal.updateRelations(params);
 
-    return Menu.forge(params).destroy();
+    return Meal.forge(params).destroy();
   },
 
   /**
-   * Promise to search a/an menu.
+   * Promise to search a/an meal.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Bookshelf.
-    const filters = strapi.utils.models.convertParams('menu', params);
+    const filters = strapi.utils.models.convertParams('meal', params);
     // Select field to populate.
-    const populate = Menu.associations
+    const populate = Meal.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias);
 
-    const associations = Menu.associations.map(x => x.alias);
-    const searchText = Object.keys(Menu._attributes)
-      .filter(attribute => attribute !== Menu.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['string', 'text'].includes(Menu._attributes[attribute].type));
+    const associations = Meal.associations.map(x => x.alias);
+    const searchText = Object.keys(Meal._attributes)
+      .filter(attribute => attribute !== Meal.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['string', 'text'].includes(Meal._attributes[attribute].type));
 
-    const searchInt = Object.keys(Menu._attributes)
-      .filter(attribute => attribute !== Menu.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['integer', 'decimal', 'float'].includes(Menu._attributes[attribute].type));
+    const searchInt = Object.keys(Meal._attributes)
+      .filter(attribute => attribute !== Meal.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['integer', 'decimal', 'float'].includes(Meal._attributes[attribute].type));
 
-    const searchBool = Object.keys(Menu._attributes)
-      .filter(attribute => attribute !== Menu.primaryKey && !associations.includes(attribute))
-      .filter(attribute => ['boolean'].includes(Menu._attributes[attribute].type));
+    const searchBool = Object.keys(Meal._attributes)
+      .filter(attribute => attribute !== Meal.primaryKey && !associations.includes(attribute))
+      .filter(attribute => ['boolean'].includes(Meal._attributes[attribute].type));
 
     const query = (params._q || '').replace(/[^a-zA-Z0-9.-\s]+/g, '');
 
-    return Menu.query(qb => {
+    return Meal.query(qb => {
       if (!_.isNaN(_.toNumber(query))) {
         searchInt.forEach(attribute => {
           qb.orWhereRaw(`${attribute} = ${_.toNumber(query)}`);
@@ -175,7 +175,7 @@ module.exports = {
       }
 
       // Search in columns with text using index.
-      switch (Menu.client) {
+      switch (Meal.client) {
         case 'mysql':
           qb.orWhereRaw(`MATCH(${searchText.join(',')}) AGAINST(? IN BOOLEAN MODE)`, `*${query}*`);
           break;

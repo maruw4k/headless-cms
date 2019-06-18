@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Menu` model.
+ * Lifecycle callbacks for the `Meal` model.
  */
 
 module.exports = {

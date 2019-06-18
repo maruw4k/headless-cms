@@ -22,11 +22,13 @@ type Category {
   updated_at: DateTime!
   name: String!
   is_active: Boolean
+  photo: UploadFile
 }
 
 input CategoryInput {
   name: String!
   is_active: Boolean
+  photo: ID
 }
 
 input createArticleInput {
@@ -45,12 +47,12 @@ type createCategoryPayload {
   category: Category
 }
 
-input createMenuInput {
-  data: MenuInput
+input createMealInput {
+  data: MealInput
 }
 
-type createMenuPayload {
-  menu: Menu
+type createMealPayload {
+  meal: Meal
 }
 
 input createRoleInput {
@@ -106,12 +108,12 @@ type deleteCategoryPayload {
   category: Category
 }
 
-input deleteMenuInput {
+input deleteMealInput {
   where: InputID
 }
 
-type deleteMenuPayload {
-  menu: Menu
+type deleteMealPayload {
+  meal: Meal
 }
 
 input deleteRoleInput {
@@ -156,6 +158,7 @@ input editArticleInput {
 input editCategoryInput {
   name: String
   is_active: Boolean
+  photo: ID
 }
 
 input editFileInput {
@@ -171,7 +174,7 @@ input editFileInput {
   related: [ID]
 }
 
-input editMenuInput {
+input editMealInput {
   name: String
   price: Float
   category: ID
@@ -234,7 +237,7 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
-type Menu {
+type Meal {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
@@ -244,14 +247,14 @@ type Menu {
   subcategory: Subcategory
 }
 
-input MenuInput {
+input MealInput {
   name: String
   price: Float
   category: ID
   subcategory: ID
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Menu | createMenuPayload | updateMenuPayload | deleteMenuPayload | Subcategory | createSubcategoryPayload | updateSubcategoryPayload | deleteSubcategoryPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Meal | createMealPayload | updateMealPayload | deleteMealPayload | Subcategory | createSubcategoryPayload | updateSubcategoryPayload | deleteSubcategoryPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
@@ -260,9 +263,9 @@ type Mutation {
   createCategory(input: createCategoryInput): createCategoryPayload
   updateCategory(input: updateCategoryInput): updateCategoryPayload
   deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
-  createMenu(input: createMenuInput): createMenuPayload
-  updateMenu(input: updateMenuInput): updateMenuPayload
-  deleteMenu(input: deleteMenuInput): deleteMenuPayload
+  createMeal(input: createMealInput): createMealPayload
+  updateMeal(input: updateMealInput): updateMealPayload
+  deleteMeal(input: deleteMealInput): deleteMealPayload
   createSubcategory(input: createSubcategoryInput): createSubcategoryPayload
   updateSubcategory(input: updateSubcategoryInput): updateSubcategoryPayload
   deleteSubcategory(input: deleteSubcategoryInput): deleteSubcategoryPayload
@@ -295,8 +298,8 @@ type Query {
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
   category(id: ID!): Category
   categories(sort: String, limit: Int, start: Int, where: JSON): [Category]
-  menu(id: ID!): Menu
-  menus(sort: String, limit: Int, start: Int, where: JSON): [Menu]
+  meal(id: ID!): Meal
+  meals(sort: String, limit: Int, start: Int, where: JSON): [Meal]
   subcategory(id: ID!): Subcategory
   subcategories(sort: String, limit: Int, start: Int, where: JSON): [Subcategory]
   text(id: ID!): Text
@@ -370,13 +373,13 @@ type updateCategoryPayload {
   category: Category
 }
 
-input updateMenuInput {
+input updateMealInput {
   where: InputID
-  data: editMenuInput
+  data: editMealInput
 }
 
-type updateMenuPayload {
-  menu: Menu
+type updateMealPayload {
+  meal: Meal
 }
 
 input updateRoleInput {
