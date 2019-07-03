@@ -4,12 +4,14 @@
     "default": {
       "connector": "strapi-hook-bookshelf",
       "settings": {
-        "client": "sqlite",
-        "filename": "database/data.db"
+        "client": "mysql",
+        "host": "remotemysql.com",
+        "port": 3306,
+        "database": "OgXM2nCHsb",
+        "username": "OgXM2nCHsb",
+        "password": "staOcAyQtf"
       },
-      "options": {
-        "useNullAsDefault": true
-      }
+      "options": {}
     }
   }
 }
