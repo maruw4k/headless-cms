@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/lunches",
+      "handler": "Lunch.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/lunches/count",
+      "handler": "Lunch.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/lunches/:id",
+      "handler": "Lunch.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/lunches",
+      "handler": "Lunch.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/lunches/:id",
+      "handler": "Lunch.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/lunches/:id",
+      "handler": "Lunch.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
