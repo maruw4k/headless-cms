@@ -47,6 +47,14 @@ type createCategoryPayload {
   category: Category
 }
 
+input createLunchInput {
+  data: LunchInput
+}
+
+type createLunchPayload {
+  lunch: Lunch
+}
+
 input createMealInput {
   data: MealInput
 }
@@ -106,6 +114,14 @@ input deleteCategoryInput {
 
 type deleteCategoryPayload {
   category: Category
+}
+
+input deleteLunchInput {
+  where: InputID
+}
+
+type deleteLunchPayload {
+  lunch: Lunch
 }
 
 input deleteMealInput {
@@ -174,6 +190,13 @@ input editFileInput {
   related: [ID]
 }
 
+input editLunchInput {
+  title: String
+  content: String
+  active: Boolean
+  price: String
+}
+
 input editMealInput {
   name: String
   price: Float
@@ -238,6 +261,24 @@ scalar JSON
 """The `Long` scalar type represents 52-bit integers"""
 scalar Long
 
+"""Lunch dnia"""
+type Lunch {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  content: String
+  active: Boolean
+  price: String
+}
+
+input LunchInput {
+  title: String
+  content: String
+  active: Boolean
+  price: String
+}
+
 type Meal {
   id: ID!
   created_at: DateTime!
@@ -257,7 +298,7 @@ input MealInput {
   additional_info: String
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Meal | createMealPayload | updateMealPayload | deleteMealPayload | Subcategory | createSubcategoryPayload | updateSubcategoryPayload | deleteSubcategoryPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Article | createArticlePayload | updateArticlePayload | deleteArticlePayload | Category | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Lunch | createLunchPayload | updateLunchPayload | deleteLunchPayload | Meal | createMealPayload | updateMealPayload | deleteMealPayload | Subcategory | createSubcategoryPayload | updateSubcategoryPayload | deleteSubcategoryPayload | Text | createTextPayload | updateTextPayload | deleteTextPayload | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload
 
 type Mutation {
   createArticle(input: createArticleInput): createArticlePayload
@@ -266,6 +307,9 @@ type Mutation {
   createCategory(input: createCategoryInput): createCategoryPayload
   updateCategory(input: updateCategoryInput): updateCategoryPayload
   deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
+  createLunch(input: createLunchInput): createLunchPayload
+  updateLunch(input: updateLunchInput): updateLunchPayload
+  deleteLunch(input: deleteLunchInput): deleteLunchPayload
   createMeal(input: createMealInput): createMealPayload
   updateMeal(input: updateMealInput): updateMealPayload
   deleteMeal(input: deleteMealInput): deleteMealPayload
@@ -301,6 +345,8 @@ type Query {
   articles(sort: String, limit: Int, start: Int, where: JSON): [Article]
   category(id: ID!): Category
   categories(sort: String, limit: Int, start: Int, where: JSON): [Category]
+  lunch(id: ID!): Lunch
+  lunches(sort: String, limit: Int, start: Int, where: JSON): [Lunch]
   meal(id: ID!): Meal
   meals(sort: String, limit: Int, start: Int, where: JSON): [Meal]
   subcategory(id: ID!): Subcategory
@@ -374,6 +420,15 @@ input updateCategoryInput {
 
 type updateCategoryPayload {
   category: Category
+}
+
+input updateLunchInput {
+  where: InputID
+  data: editLunchInput
+}
+
+type updateLunchPayload {
+  lunch: Lunch
 }
 
 input updateMealInput {

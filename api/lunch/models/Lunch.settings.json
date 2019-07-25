@@ -22,9 +22,6 @@
     },
     "price": {
       "type": "string"
-    },
-    "date": {
-      "type": "datetime"
     }
   }
 }
