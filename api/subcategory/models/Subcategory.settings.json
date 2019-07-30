@@ -1,6 +1,6 @@
 {
   "connection": "default",
-  "collectionName": "Menu",
+  "collectionName": "subcategories",
   "info": {
     "name": "subcategory",
     "description": "Subkategoria menu"

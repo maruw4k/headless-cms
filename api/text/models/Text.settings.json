@@ -17,10 +17,10 @@
       "type": "string"
     },
     "pl": {
-      "type": "string"
+      "type": "text"
     },
     "eng": {
-      "type": "string"
+      "type": "text"
     }
   }
 }
