@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "defaultLocale": "en_us",
+  "defaultLocale": "pl_pl",
   "modes": [
     "query",
     "subdomain",

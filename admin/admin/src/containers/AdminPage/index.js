@@ -102,7 +102,7 @@ export class AdminPage extends React.Component {
         ReactGA.pageview(pathname);
       }
     }
-    
+
     const hasAdminPath = ['users-permissions', 'hasAdminUser'];
 
     if (
@@ -289,7 +289,6 @@ export class AdminPage extends React.Component {
           isOpen={this.props.blockApp && this.props.showGlobalAppBlocker}
           {...this.props.overlayBlockerData}
         />
-        {this.shouldDisplayLogout() && <Onboarding />}
       </div>
     );
   }

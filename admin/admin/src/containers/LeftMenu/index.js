@@ -19,7 +19,6 @@ function LeftMenu(props) {
     <div className={styles.leftMenu}>
       <LeftMenuHeader />
       <LeftMenuLinkContainer {...props} />
-      <LeftMenuFooter plugins={props.plugins} version={props.version} />
     </div>
   );
 }

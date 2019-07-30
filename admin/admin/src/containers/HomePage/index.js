@@ -107,7 +107,9 @@ export class HomePage extends React.PureComponent {
         <Helmet title="Home Page" />
         <div className="row">
           <div className="col-md-8 col-lg-8">
-           Witaj w panelu CMS
+            <h3>
+              Witaj w panelu CMS
+            </h3>
           </div>
         </div>
       </div>
