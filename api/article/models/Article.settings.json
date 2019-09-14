@@ -13,11 +13,13 @@
   "attributes": {
     "title": {
       "required": true,
-      "type": "string"
-    },
-    "lead": {
       "type": "string",
       "maxLength": 200
+    },
+    "lead": {
+      "required": true,
+      "type": "string",
+      "maxLength": 300
     },
     "content": {
       "type": "text",
@@ -26,7 +28,18 @@
     "photo": {
       "model": "file",
       "via": "related",
-      "plugin": "upload"
+      "plugin": "upload",
+      "required": true
+    },
+    "category": {
+      "enum": [
+        "Wydarzenie",
+        "Koncert",
+        "Meet up",
+        "Inne"
+      ],
+      "type": "enumeration",
+      "default": "Wydarzenie"
     }
   }
 }
