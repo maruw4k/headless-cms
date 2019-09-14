@@ -11,6 +11,8 @@ Based on [Strapi](https://strapi.io/)
 
 ## Site URL
 On heroku: [pacific-bastion-24909.herokuapp.com](https://pacific-bastion-24909.herokuapp.com/)
+
+Login panel: [pacific-bastion-24909.herokuapp.com/admin](https://pacific-bastion-24909.herokuapp.com/admin)
 	
 ## Technologies
 [Strapi](https://strapi.io/)  
@@ -20,6 +22,11 @@ On heroku: [pacific-bastion-24909.herokuapp.com](https://pacific-bastion-24909.h
 To run this project, first install using npm:
 ```
 $ npm install
+```
+
+Configure database connections in: 
+```
+config/environments/**/database.json
 ```
 
 To start locally:
